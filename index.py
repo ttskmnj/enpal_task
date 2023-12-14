@@ -88,19 +88,22 @@ class Enpal:
     if len(self.sequence_of_visits) == 0:
       self.task_b()
 
+    if len(self.total_distance) == 0:
+      self.task_c()
+
     for k, v in enumerate(self.sequence_of_visits):
-      for i in range(200):
+      for i in range(5000):
         # generate list of index of sequence_of_visits and randomly choose origin and destination
         indexes = list(range(len(v)))
         origin = indexes.pop(random.randint(0, len(indexes) - 1))
         dest = indexes.pop(random.randint(0, len(indexes) - 1))
-      
+
         changed_sequence = \
           self.__change_sequence(
             v,
             [origin, dest]
           )
-        
+
         new_distance = self.__calc_distance(k, changed_sequence)
 
         # update sequence of visit if distance is shorter
@@ -114,8 +117,9 @@ class Enpal:
 # engineer: 2
 # customer: 8
 # engineer_0 visit 5 customers, engineer_1 visit 3 customers
-################################################################
-enpal = Enpal(2, 8, [5, 3])
+##############################################################
+# enpal = Enpal(2, 8, [5, 3])
+enpal = Enpal(2, 50, [25, 25])
 
 ###########################
 # generate distance matrix

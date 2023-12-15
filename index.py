@@ -100,6 +100,7 @@ class Enpal:
 
     for k, v in enumerate(self.sequence_of_visits):
       best_distance = self.total_distance[k]
+      best_sequence_of_visits = v
       sequence_of_visits = v
 
       for i in range(len(v) - 1):

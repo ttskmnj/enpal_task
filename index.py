@@ -81,6 +81,13 @@ class Enpal:
           route_change[k]
         )
 
+  def __two_opt_swap(self, sequence_of_visits, route_change):
+    point_0, point_1 = route_change
+    reverse_sequence = sequence_of_visits[point_0: point_1]
+    reverse_sequence.reverse()
+
+    return sequence_of_visits[:point_0] + reverse_sequence + sequence_of_visits[point_1:]
+
   def task_e(self):
     if len(self.distance) == 0:
       self.task_a()
@@ -92,25 +99,27 @@ class Enpal:
       self.task_c()
 
     for k, v in enumerate(self.sequence_of_visits):
-      for i in range(5000):
-        # generate list of index of sequence_of_visits and randomly choose origin and destination
-        indexes = list(range(len(v)))
-        origin = indexes.pop(random.randint(0, len(indexes) - 1))
-        dest = indexes.pop(random.randint(0, len(indexes) - 1))
+      best_distance = self.total_distance[k]
+      sequence_of_visits = v
 
-        changed_sequence = \
-          self.__change_sequence(
-            v,
-            [origin, dest]
-          )
+      for i in range(len(v) - 1):
+        for j in range(i, len(v)):
+          changed_sequence = \
+            self.__two_opt_swap(
+              sequence_of_visits,
+              [i, j]
+            )
 
-        new_distance = self.__calc_distance(k, changed_sequence)
+          new_distance = self.__calc_distance(k, changed_sequence)
 
-        # update sequence of visit if distance is shorter
-        if new_distance < self.total_distance[k]:
-          self.sequence_of_visits[k] = changed_sequence
-          self.total_distance[k] = new_distance
-          break
+          # update sequence of visit if distance is shorter
+          if new_distance < best_distance:
+            best_sequence_of_visits = changed_sequence
+            best_distance = new_distance
+        sequence_of_visits = best_sequence_of_visits
+      self.sequence_of_visits[k] = sequence_of_visits
+      self.total_distance[k] = best_distance
+
 
 ################################################################
 # create Enpal class instance with following setting
@@ -118,8 +127,7 @@ class Enpal:
 # customer: 8
 # engineer_0 visit 5 customers, engineer_1 visit 3 customers
 ##############################################################
-# enpal = Enpal(2, 8, [5, 3])
-enpal = Enpal(2, 50, [25, 25])
+enpal = Enpal(2, 8, [5, 3])
 
 ###########################
 # generate distance matrix

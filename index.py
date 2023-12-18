@@ -122,59 +122,60 @@ class Enpal:
       self.total_distance[k] = best_distance
 
 
-################################################################
-# create Enpal class instance with following setting
-# engineer: 2
-# customer: 8
-# engineer_0 visit 5 customers, engineer_1 visit 3 customers
-##############################################################
-enpal = Enpal(2, 8, [5, 3])
+if __name__ == "__main__":
+  ##############################################################
+  # create Enpal class instance with following setting
+  # engineer: 2
+  # customer: 8
+  # engineer_0 visit 5 customers, engineer_1 visit 3 customers
+  ##############################################################
+  enpal = Enpal(2, 8, [5, 3])
 
-###########################
-# generate distance matrix
-###########################
-enpal.task_a()
+  ###########################
+  # generate distance matrix
+  ###########################
+  enpal.task_a()
 
-print("\n# generated distance matrix")
-print(enpal.distance)
-
-
-##################################
-# generate the sequence of visits
-##################################
-enpal.task_b()
-
-print("\n# generated the sequence of visits")
-print(enpal.sequence_of_visits)
+  print("\n# generated distance matrix")
+  print(enpal.distance)
 
 
-####################################
-# calculate the distance of travel
-####################################
-enpal.task_c()
+  ##################################
+  # generate the sequence of visits
+  ##################################
+  enpal.task_b()
 
-print("\n# calculated distance of travel ")
-print(enpal.total_distance)
+  print("\n# generated the sequence of visits")
+  print(enpal.sequence_of_visits)
 
 
-################################
-# change the sequence of visits
-# engineer_0: switch 5th visit and 2nd visit
-# engineer_1: switch 2nd visit and 3rd visit
-################################
-enpal.task_d([[4, 1], [1, 2]])
+  ####################################
+  # calculate the distance of travel
+  ####################################
+  enpal.task_c()
 
-print("\n# changed sequence of visits")
-print("# engineer_0: switch 5th visit and 2nd visit")
-print("# engineer_1: switch 2nd visit and 3rd visit")
-print(enpal.sequence_of_visits)
+  print("\n# calculated distance of travel ")
+  print(enpal.total_distance)
 
-##################################
-# change the sequence of visits
-# only if distance become shorter
-##################################
-enpal.task_e()
-print("\n# shorter sequence of visits")
-print(enpal.sequence_of_visits)
-print("# shorter total_distance")
-print(enpal.total_distance)
+
+  #############################################
+  # change the sequence of visits
+  # engineer_0: switch 5th visit and 2nd visit
+  # engineer_1: switch 2nd visit and 3rd visit
+  #############################################
+  enpal.task_d([[4, 1], [1, 2]])
+
+  print("\n# changed sequence of visits")
+  print("# engineer_0: switch 5th visit and 2nd visit")
+  print("# engineer_1: switch 2nd visit and 3rd visit")
+  print(enpal.sequence_of_visits)
+
+  ##############################
+  # Optimize sequence of visits 
+  # with 2 opt algorithm
+  ##############################
+  enpal.task_e()
+  print("\n# optimized sequence of visits")
+  print(enpal.sequence_of_visits)
+  print("# optimized total_distance")
+  print(enpal.total_distance)
